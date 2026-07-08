@@ -1,5 +1,11 @@
 from django.contrib import admin
-from .models import Course, Lesson, Question, Choice, Submission
+from .models import (
+    Course,
+    Lesson,
+    Question,
+    Choice,
+    Submission
+)
 
 
 class ChoiceInline(admin.TabularInline):
@@ -17,7 +23,7 @@ class QuestionAdmin(admin.ModelAdmin):
 
 
 class LessonAdmin(admin.ModelAdmin):
-    list_display = ['title', 'course']
+    inlines = [QuestionInline]
 
 
 admin.site.register(Course)
