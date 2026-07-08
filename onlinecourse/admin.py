@@ -20,6 +20,11 @@ class QuestionInline(admin.TabularInline):
     extra = 1
 
 
+class LessonInline(admin.TabularInline):
+    model = Lesson
+    extra = 1
+
+
 class QuestionAdmin(admin.ModelAdmin):
     inlines = [ChoiceInline]
 
@@ -28,9 +33,15 @@ class LessonAdmin(admin.ModelAdmin):
     inlines = [QuestionInline]
 
 
+class CourseAdmin(admin.ModelAdmin):
+    inlines = [LessonInline]
+    list_display = ('name',)
+    search_fields = ('name',)
+
+
 admin.site.register(Instructor)
 admin.site.register(Learner)
-admin.site.register(Course)
+admin.site.register(Course, CourseAdmin)
 admin.site.register(Lesson, LessonAdmin)
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Choice)
