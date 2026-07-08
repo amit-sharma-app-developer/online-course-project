@@ -1,5 +1,7 @@
 from django.contrib import admin
 from .models import (
+    Instructor,
+    Learner,
     Course,
     Lesson,
     Question,
@@ -26,6 +28,8 @@ class LessonAdmin(admin.ModelAdmin):
     inlines = [QuestionInline]
 
 
+admin.site.register(Instructor)
+admin.site.register(Learner)
 admin.site.register(Course)
 admin.site.register(Lesson, LessonAdmin)
 admin.site.register(Question, QuestionAdmin)

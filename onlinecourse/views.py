@@ -75,11 +75,7 @@ def submit(request, course_id):
 
 
 @login_required
-def show_exam_result(
-    request,
-    course_id,
-    submission_id
-):
+def show_exam_result(request, course_id, submission_id):
 
     course = get_object_or_404(
         Course,
@@ -91,14 +87,24 @@ def show_exam_result(
         pk=submission_id
     )
 
-    passed = submission.score >= 50
+    selected_ids = []
+
+    for choice in submission.choices.all():
+        selected_ids.append(choice.id)
+
+    grade = submission.score
+    possible = 100
+
+    context = {
+        "course": course,
+        "submission": submission,
+        "selected_ids": selected_ids,
+        "grade": grade,
+        "possible": possible,
+    }
 
     return render(
         request,
         "onlinecourse/result.html",
-        {
-            "course": course,
-            "submission": submission,
-            "passed": passed,
-        }
+        context
     )

@@ -2,6 +2,20 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
+class Instructor(models.Model):
+    full_time = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f"Instructor {self.id}"
+
+
+class Learner(models.Model):
+    occupation = models.CharField(max_length=200)
+
+    def __str__(self):
+        return f"Learner {self.id}"
+
+
 class Course(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField()
